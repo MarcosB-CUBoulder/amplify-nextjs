@@ -2,12 +2,12 @@
 "use client";
 import type { AppProps } from "next/app";
 import { withAuthenticator } from "@aws-amplify/ui-react";
-import { Amplify } from 'aws-amplify';
-import config from '@/amplifyconfiguration.json';
+//import { Amplify } from 'aws-amplify';
+//import config from '@/amplifyconfiguration.json';
 import "@aws-amplify/ui-react/styles.css";
 import type { WithAuthenticatorProps } from '@aws-amplify/ui-react';
 
-Amplify.configure(config);
+//Amplify.configure(config);
 function App({signOut, user}: WithAuthenticatorProps & AppProps) {
   return (
       <>

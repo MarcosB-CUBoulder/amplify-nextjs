@@ -5,32 +5,35 @@ import "@aws-amplify/ui-react/styles.css";
 import { useState } from 'react';
 
 function App({ signOut, user }: WithAuthenticatorProps) {
-    const [location, setLocation] = useState({ city: '', state: '' });
-    const [submitted, setSubmitted] = useState(false);
+    const [formState, setFormState] = useState({
+        city: '',
+        state: '',
+        submitted: false
+    });
     const handleLocationSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        setSubmitted(true);
+        setFormState(prev => ({ ...prev, submitted: true }));
     };
     const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setLocation(prev => ({ ...prev, city: event.target.value }));
+        setFormState(prev => ({ ...prev, city: event.target.value }));
     };
 
     const handleStateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setLocation(prev => ({ ...prev, state: event.target.value }));
+        setFormState(prev => ({ ...prev, state: event.target.value }));
     };
 
   return (
       <>
-          <h1>Hello, {user?.signInDetails?.loginId}{submitted ? ` from ${location.city}, ${location.state}` : ''} 👋</h1>
-          {!submitted && (
+          <h1>Hello, {user?.signInDetails?.loginId}{formState.submitted ? ` from ${formState.city}, ${formState.state}` : ''} 👋</h1>
+          {!formState.submitted && (
               <form onSubmit={handleLocationSubmit}>
                   <label>
                       City:
-                      <input type="text" value={location.city} onChange={handleCityChange} required />
+                      <input type="text" value={formState.city} onChange={handleCityChange} required />
                   </label>
                   <label>
                       State:
-                      <input type="text" value={location.state} onChange={handleStateChange} required />
+                      <input type="text" value={formState.state} onChange={handleStateChange} required />
                   </label>
                   <button type="submit">Submit</button>
               </form>

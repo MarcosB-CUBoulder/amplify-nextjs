@@ -7,6 +7,10 @@ import { useState } from 'react';
 function App({ signOut, user }: WithAuthenticatorProps) {
     const [location, setLocation] = useState({ city: '', state: '' });
     const [submitted, setSubmitted] = useState(false);
+    const handleLocationSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        setSubmitted(true);
+    };
     const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setLocation(prev => ({ ...prev, city: event.target.value }));
     };
@@ -22,11 +26,11 @@ function App({ signOut, user }: WithAuthenticatorProps) {
               <form onSubmit={handleLocationSubmit}>
                   <label>
                       City:
-                      <input type="text" name="city" required />
+                      <input type="text" value={location.city} onChange={handleCityChange} required />
                   </label>
                   <label>
                       State:
-                      <input type="text" name="state" required />
+                      <input type="text" value={location.state} onChange={handleStateChange} required />
                   </label>
                   <button type="submit">Submit</button>
               </form>

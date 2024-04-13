@@ -11,8 +11,9 @@ const schema = a.schema({
   Todo: a
     .model({
       content: a.string(),
+      userInput: a.string(),
     })
-    .authorization([a.allow.owner(), a.allow.public().to(['read'])]),
+    .authorization([a.allow.owner(), a.allow.public().to(['read', 'create'])]),
 });
 
 export type Schema = ClientSchema<typeof schema>;
